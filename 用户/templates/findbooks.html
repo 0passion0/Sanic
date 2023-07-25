@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <h3>{{ result.title }}</h3>
+            <p><strong>ID:</strong> {{ result.id }}</p>
+            <p><strong>Description:</strong> {{ result.description }}</p>
+        </li>
+
+    </ul>
+</body>
+
+</html>

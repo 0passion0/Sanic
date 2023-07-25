@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>插入用户数据</title>
+</head>
+<body>
+<h1>插入用户数据</h1>
+<form id="userForm" method="post">
+    <label for="employeeId">工号：</label>
+    <input type="text" id="employeeId" name="employeeId" required><br><br>
+
+    <label for="name">姓名：</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="username">用户名：</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="phone">电话：</label>
+    <input type="text" id="phone" name="phone" required><br><br>
+
+    <label for="email">邮箱：</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="hireDate">入职时间：</label>
+    <input type="date" id="hireDate" name="hireDate" required><br><br>
+
+    <label for="position">职位：</label>
+    <input type="text" id="position" name="position" required><br><br>
+
+    <label for="departmentId">部门编号：</label>
+    <input type="text" id="departmentId" name="departmentId" required><br><br>
+
+    <label for="permissions">权限：</label>
+    <select id="permissions" name="权限值" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select><br><br>
+
+    <button type="submit">插入用户</button>
+</form>
+
+<script>
+    // 获取表单元素
+    const userForm = document.getElementById("userForm");
+
+    // 在表单提交时执行的函数
+    userForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+
+        // 收集表单数据
+        const formData = {
+            "工号": document.getElementById("employeeId").value,
+            "姓名": document.getElementById("name").value,
+            "用户名": document.getElementById("username").value,
+            "电话": document.getElementById("phone").value,
+            "邮箱": document.getElementById("email").value,
+            "入职时间": new Date(document.getElementById("hireDate").value), // 将字符串转换为日期对象
+            "职位": document.getElementById("position").value,
+            "部门编号": document.getElementById("departmentId").value,
+            "权限": document.getElementById("permissions").value
+            //               "工号": "555",
+            // "姓名": "霸王别姬",
+            // "用户名": "DGtlg",
+            // "电话": "13294759221",
+            // "邮箱": "1796448356@qq.com",
+            // "入职时间": "2023-07-31",
+            // "职位": "牛马",
+            // "部门编号": "110",
+            // "权限": "1"
+        };
+
+        // 将数据转换为 JSON 格式
+        const jsonData = JSON.stringify(formData);
+
+        // 发送数据到后端（这里只是一个示例，你需要替换成实际的后端地址）
+        fetch("http://127.0.0.1:8000/user/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: jsonData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("数据已发送到后端并收到响应：", data);
+                // 在这里可以根据后端响应做进一步处理
+            })
+            .catch(error => {
+                console.error("发生错误：", error);
+            });
+    });
+</script>
+</body>
+</html>

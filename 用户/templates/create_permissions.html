@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>创建权限</title>
+</head>
+<body>
+<h1>创建权限</h1>
+<form id="userForm" method="post">
+    <label for="employeeId">权限名：</label>
+    <input type="text" id="employeeId" name="权限名" required><br><br>
+    <label for="permissions">权限值：</label>
+    <select id="permissions" name="权限值" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select><br><br>
+    <button type="submit">创建权限</button>
+</form>
+
+<script>
+    // 获取表单元素
+    const userForm = document.getElementById("userForm");
+
+    // 在表单提交时执行的函数
+    userForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+
+        // 收集表单数据
+        const formData = {
+            "权限": document.getElementById("permissions").value,
+            "权限名": document.getElementById("employeeId").value,
+        };
+
+
+        // 将数据转换为 JSON 格式
+        const jsonData = JSON.stringify(formData);
+
+        // 发送数据到后端（这里只是一个示例，你需要替换成实际的后端地址）
+        fetch("http://127.0.0.1:8000/permissions/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: jsonData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("数据已发送到后端并收到响应：", data);
+                // 在这里可以根据后端响应做进一步处理
+            })
+            .catch(error => {
+                console.error("发生错误：", error);
+            });
+    });
+</script>
+</body>
+</html>

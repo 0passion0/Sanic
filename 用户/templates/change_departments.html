@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>添加部门</title>
+</head>
+<body>
+<h1>添加部门</h1>
+<form id="departmentForm" method="post">
+    <label for="departmentNumber">部门编号：</label>
+    <input type="text" id="departmentNumber" name="departmentNumber" required><br><br>
+    <label for="departmentName">部门名：</label>
+    <input type="text" id="departmentName" name="departmentName" required><br><br>
+    <label for="parentDepartment">父节点：</label>
+    <input type="text" id="parentDepartment" name="parentDepartment"><br><br>
+    <label for="departmentDescription">部门简介：</label>
+    <input type="text" id="departmentDescription" name="departmentDescription"><br><br>
+    <button type="submit">添加部门</button>
+</form>
+
+<script>
+    const departmentForm = document.getElementById("departmentForm");
+
+    departmentForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = {
+            "部门编号": document.getElementById("departmentNumber").value,
+            "部门名": document.getElementById("departmentName").value,
+            "父节点": document.getElementById("parentDepartment").value,
+            "部门简介": document.getElementById("departmentDescription").value
+        };
+
+        const jsonData = JSON.stringify(formData);
+
+        fetch("http://127.0.0.1:8000/departments/change", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: jsonData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("数据已发送到后端并收到响应：", data);
+            })
+            .catch(error => {
+                console.error("发生错误：", error);
+            });
+    });
+</script>
+</body>
+</html>
