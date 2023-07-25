@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>创建图书</title>
+</head>
+<body>
+    <h1>创建图书</h1>
+    <form id="bookForm">
+        <label for="id">图书ID:</label>
+        <input type="text" id="id" name="id" required><br>
+
+        <label for="title">标题:</label>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="description">作者:</label>
+        <input type="text" id="description" name="description" required><br>
+
+        <button type="submit">创建图书</button>
+    </form>
+
+    <script>
+        async function createBook() {
+            const bookData = {
+                id: document.getElementById('id').value,
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value
+            };
+
+            // 图书信息以JSON发送
+            const response = await fetch('/book/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bookData)
+            });
+
+            // 解析服务器返回的JSON响应
+            const data = await response.json();
+            // 根据需要处理响应数据
+            console.log(data);
+        }
+
+        // 监听表单的提交事件，阻止默认的表单提交行为，调用createBook函数来处理提交
+        document.getElementById('bookForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+            createBook();
+        });
+    </script>
+</body>
+</html>

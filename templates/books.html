@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        {% for i in result %}
+        <li>
+            <h3>{{ i.title }}</h3>
+            <p><strong>ID:</strong> {{ i.id }}</p>
+            <p><strong>Description:</strong> {{ i.description }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
